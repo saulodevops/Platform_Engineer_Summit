@@ -1,0 +1,243 @@
+PES2023
+
+Por Matheus Fidelis (especialista de software em um grande banco) SRE
+
+Mensagem: "Tudo é uma construção, ninguém está 100% pronto"
+
+O que é SRE? -> Engenharia de confiabilidade
+
+Incorporar aspectos de engenharia no time de operações : profissional alocado em produtos com alguns 9s de 
+disponibilidade
+
+O que é esperado? Medir e garantir alguma coisa (produto interno, produto externo, domínio de software, 
+sistema crítico, etc.)
+
+Não é apenas sobre infraestrutura, é um tema organizacional, que abrange muitos times, responsabilidades.
+Por mais que a cadeia seja grande, o objetivo é garantir alguma coisa para o cliente final.
+
+Literaturas recomendadas: Site Reliability Engineering e Workbook
+Build Secure e Reliable Systems
+
+Aceitar os riscos: cultura: não é "se", é "quando"
+
+- As coisas vão quebrar
+- Algo vai parar de funcionar
+- Vai dar erro
+- Alguém vai ficar triste
+
+Será que estou avaliando no meu desenho de arquitetura o seguinte ponto: ela vai cair
+
+START
+Feijão com Arroz: SLA, SLO e SLI
+
+SLA: Service Level agreement: Número previsto em contrato, obrigação: nunca pode ser 100%
+SLO: Service Level Objective: Objetivo de melhora da métrica: Mais rigoroso que SLA: estrela guia: nunca pode ser 100%
+SLI: Service Level indicator: O indicador de performance do SLO e SLA: o dedo duro.
+Error Budget: O quanto falta pro SLO e SLA serem quebrados? : Margem de erro.
+
+Métricas de confiabilidade
+* Deve ser um indicador além do time técnico
+* É simples, objetivos, todos entendem
+* Sem glamour
+* "Se alguém demora mais de 30 segundos para entender, está ruim"
+
+"Você vai ter muitos alarmes, dashboards, muitas métricas até melhores e mais detalhadas que eles, mas isso não
+quer dizer que você tem SLO's, eles não servem"
+
+Quais podem ser meus SLA's, SLO's e SLI's?
+Métricas RED: Métricas voltadas para serviços e microsserviços, modelo baseado em uso de serviço
+
+Rate
+Número de requests em um determinado range de tempo
+
+error
+Porcentagem de erros em um determinado range de tempo
+
+Duration
+Duração média, máxima, p99, p90, p50 dos requests dentro de um determinado range de tempo
+
+"Se o produto não comprar, não faz sentido"
+
+Como garantir SLO e SLA? A jornada começa aqui!
+
+Identificando e medindo e tomando ações
+
+CHAOS: abraçar aleatoriedade e incertezas (e se preparar para isso)
+Antifragilidade: Se beneficiar das aleatoriedades sistêmicas (ou não)
+Vem de dois livros: Antifrágil e a lógica do cisne negro
+Conceito proposto por Nassin Taleb (matemático, analista de riscos): capacidade de um sistema ou de uma organização
+a resistir a diversidades, choques, perturbações e incertezas. Não só resistir mas se beneficiar.
+Cisnes negros: eventos aleatórios que não podem ser previstos: irregulares e de alto impacto: maior característica é
+que são muito óbvios e previsíveis depois que aconteceram e foram previstos.
+
+Cisnes negros Origens:
+- Networking
+- Containers Hell
+- Business Erros
+- Datacenter Outages
+- System Outages
+- Hardware Failures
+- Compatibility Failures
+- Components Failures
+- Security Disasters
+
+Lidando com seus Cisnes:
+- Conversando e Conhecendo
+- Mapeamento visual
+- Game Days
+- Simulações de Desastres
+- Perguntas Cretinas
+- Assumindo Riscos como Produto
+- Post-Mortens
+
+Blast Radius: Estimar e diminuir impactos de Cisnes Negros
+* Termo utilizado pelos times da AWS
+* Zona de impacto de um desastre
+* Qual o dano?
+* Quais os worloads afetados?
+* Quais as dependências?
+* O que está em Outage?
+* O que será degradado parcialmente?
+* O que ainda está funcionando?
+
+Como medir?
+
+* Matriz de resiliência (traçando todos os serviços e dependencias)
+* Healthmaps (SLI's de todas as apps em um lugar único e realiza simulações)
+* Game Days (manutenção programada)
+* Simulação de deastre
+* Perguntas cretinas (O que acontece quando isso aqui cair? E se eu desligar isso aqui, esse outro ainda funciona?,
+O que podemos fazer para isso nao cair junto? Ou quem sabe minimizar o impacto da queda?)
+
+Disaster Recovery e Game Days
+* Um desastre é um desastre por definição
+* Quem define o que é um desastre?
+- Não é definido pelo time técnico, normalmente definido pelo time de negócios
+* Capacidade de escolher entre (algum dano você vai sofrer, por isso é um desastre):
+- Tomar uma voadora
+- Tomar um soco
+- Tomar um tapa
+
+* Backlog de perguntas cretinas
+* Simular impacto real delas
+* Diminuir dependências
+* Criar fluxos alternativos
+* TradeOff
+* Testar ativamente fluxos alternativos
+* Desligar dependências, simular falhas e manter SLO's
+
+SRE pode ser um time, resiliência não. Resiliência é uma responsabilidade compartilhada multidisciplinar de todos
+envolvidos no processo.
+
+Resiliência de Infraestrutura
+* Redundancia de Networking
+* Multi-AZ e Multi Region
+* Backups, Snapshots, Restore
+* Recursos redundantes
+* Camada de dados
+* Região e plano de DR?
+* Capacity Planning
+* Plataforma
+* SLA dos fornecedores
+
+Resiliência Sistemica
+* Programação defensiva
+* Healthchecks
+* Sync e Async
+* Retry Policies
+* Circuit Breakers
+* Fault Injection
+* Fallbacks
+* Desacoplamento de Isolamento
+* Camada de dados
+
+Retry Policies:
+* Primeiro Passo para conseguirmos definir resiliencia
+* Integrações Pragmaticas
+* Retentativa de comunicação Sync
+* Priorizar comunicação Async
+* Sempre repensar num fallback
+* Mensageria e Filas Async
+* Plataforma Inbound e Outbound
+* Timeout nas integrações
+
+Fallbacks:
+* Sempre pensar em fluxos altenartivos
+* Duvida entre duas ou mais soluções? Use várias
+* Duvida entre dois ou mais parceiros? Tenha vários
+* Fluxos reserva
+* Mensageria, reservas, fluxo
+* Represagem
+* Processamento tardio
+
+Circuit Breakers:
+* Dar erro mais rapido?
+* Trabalhar com falhas de forma prevista
+* Thresholds 5xx, conn, business
+* Fallback acionado de forma inteligente
+* Quebra do fluxo prioritário torna o fallback prioritario
+* Checagem inteligente
+* Monitoramento
+
+Fault Injection:
+* Injetar erros primários intencionais
+* Testar ativamente os fallbacks
+* Problemas de monitoramento
+* Porcentagens aceitáveis do fluxo principal
+* Chaos engineering - Assauts
+- Latency Injection
+- Error Injection
+- Matar container
+
+QA/DevOps
+* Testes
+* Linters
+* Business Tests
+* Contratos
+* Features Toggles
+* Canary
+* Blue/Green
+* Rollback rápido?
+
+Resiliência em Segurança
+* Monitoramente
+* Perimetro
+* DMZ
+* DDoS
+* WAF
+* Scans na Pipeline
+* SAST e DAST Continuous
+* Thread Inteligence
+
+Chaos Intentional
+* Testar resiliencia dos clientes e serviços
+* Plataforma / Cloud - Chaos Monkey
+* Kubernetes - Chaos Mesh, gremlin, litmusChaos
+* Development - Hystrix, Resilience4j, GoBreaker, Chaos Monkey libs
+
+PRR Review Production Checklist
+* Healthcheck dos produtos e dependencias
+* Farantir de verdade
+* MVP não é desculpa
+* Deu certo, e agora??
+* Revisitar periodicamente
+* Score de confiança interno
+* Até quando é do controle do SRE?
+
+"A jornada é a parte mais importante do processo"
+
+"É impossível ter tudo para ontem. Trabalhe com pequenos escopos"
+
+Templates e Golden Path
+* Começar do zero com tudo que tem de melhor
+* Aprendizado continuo
+* Reaproveitamento
+* Granho de tempo
+* Templates
+* Tudo "by default"
+-> Ctrl+c ctrl+v
+
+* Como manter tudo isso sem inibir inovação?
+* Quais as melhores ferramentas?
+* Quais as melhores práticas?
+* Quais as melhores recomendações?
