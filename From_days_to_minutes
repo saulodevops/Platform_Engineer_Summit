@@ -1,0 +1,120 @@
+Por Rodrigo Santos e Henrique Oliveira: Devops e Developer Specalist do Grupo Boticário
+
+About Grupo Boticário
+Maior empresa de franquias no ramo de cosméticos do Mundo
+Entre as 15 maiores empresas do ramo de beleza do mundo
+12 mil colaboradores diretos
+30 mil colaboradores indiretos
+Mais de 4 mil lojas em mais de 1500 municípios
+100% do território nacional
+Líderes em franquia e ecommerce
+faturamento de 23 bi
+
+GB Cloud infrastructure: AWS para produtos digitais, Google para produtos de data analytics, Azure para produtos 
+Microsoft
+
+Foco em fazer uma transformação digital nos ultimos anos, sendo o foco principal do dia a dia ser entregar para
+os desenvolvedores uma experiencia boa para eles trabalharem (DX): melhorando performance e qualidade da entrega
+dos produtos
+
+The problem
+Antes:
+* Apenas 4 contas na AWS na Organização
+* Muitos recursos não IAC
+* Apenas 3 cluster Kubernetes
+* Demorava de 7 a 10 dias para provisionar ci/cd e pipelines
+* GitOps workflow implementation usando Atlantis + Terraform
+
+Muitas vezes o desenvolvedor ficava travado por burocracias, gerando frustração.
+em 2019: maioria dos profissionais de desenvolvimento eram terceiros (300 ao todo)
+Overhead em cima do time de infraestrutura, muitas solicitações para um time não muito amplo.
+A ideia era eliminar o cenário de 2019
+
+Desafios:
+* Como estruturar a plataforma interna
+* Como compartilhar conhecimento
+* Como garantir que a operação e manutenção funcionariam de forma coesa
+* Como garantir padrões de segurança, de qualidade de código
+* Como diminuir fricção de tempo de espera do time de desenvolvimento e alta pressão do time de infraestrutura
+* Como estimar custo e controlá-lo
+
+Desenhando uma nova plataforma: o PDD
+
+Objetivos: 
+* Autonomia para o time de desenvolvimento
+* Reduzir tempo de provisionamento
+* Senso de dono: empoderamento e engajamento
+* Construir uma plataforma modular de desenvolvimento que habilitasse o time de desenvolvimento a trabalhar em escala
+utilizando tecnologias open source
+* Garantir fluxo gitops automatizado
+* Dentre outros
+
+Requisitos:
+* Redução da fricção - aprendizado simples - linguagem/sintaxe
+* Evitar configuração excessiva d eparametros
+* Abstrarir parametros e complexidade
+* Ser open source
+* Integração com kubernetes/argocd e gitops flow
+
+> Backstage é utilizado (spotify) e githubactions
+
+A plataforma
+Templates Backstage
+Pipeline do Github Actions
+Monitoramento da própria aplicação
+New Relic
+Aws
+Crosplane
+Helm Chart
+Sonar
+Terraform
+ArgoCD
+
+Arquitetura
+Tanto o desenvolvedor quanto o Devops tem acesso aos recursos via API e a plataforma utilizando as APIs, faz
+a comunicação com o cloud provider (API based)
+
+Backstage -> github actions -> argo CD -> crossplane -> cloud provider
+
+Porque Backstage?
+Segundo o Rodrigo, optaram pelo Backstage por ser uma ferramenta open source, uma plataforma bem consolidada no
+mercado. Possui muitas abstrações dentro dele, possibilidade de trabalhar com AWS, Azure, GCP, bitbucket. Entrega
+uma série de integrações de fácil configuração, assume toda a complexidade de trabalhar com as integrações, leitura
+de catálogos, catalogar repositórios. Tem uma parte muito boa de extensão, para fazer scafoldings. Uma ferramenta
+muito completa, facilita muita coisa.
+Scafolding: Processo que pega o template, as informações que o usuário preencheu e faz, a grosso modo, um de:para
+para conseguir criar tudo que foi definido: informações do usuário, AWS, projeto no sonar, no new relic. É o motor
+responsável por construir o que o desenvolvedor vai ter no final: uma aplicação minimamente funcional.
+
+Porque Crossplane?
+Segundo o Henrique, pensando no desenvolvedor, será que ele consegue trabalhar com terraform e outras ferramentas 
+de IAC? O Crossplane vem para abstrair ainda mais, trabalha com objetos kubernetes, trabalha com vários providers.
+Um jeito mais simples e abstrato, ao trabalhar com Helm em cima dos objetos kubernetes. Para o desenvolvedor, fica
+muito mais limpo e de provisionamento rápido.
+
+Demonstração
+
+Resultados em menos de um ano
+* habilitar mais de 1000 desenvolvedores trabalhando remotamente
+* time de infraestrutura escalou para trabalhar melhor
+* tempo de provisionamento reduziu de dias para minutos
+* Todos os desenvolvedores tem acesso à plataforma
+* 100% de autonomia
+* Totalmente developer friendly, desenvolvedor consegue se guiar nas documentações
+* AWS em escala
+* Todos de tech tem acesso à plataforma
+* Colaboração
+* Visão completa do ecosistema
+
+Hoje:
+* 100 contas da AWS gerenciadas
+* +1000 de aplicações já provisionadas
+* 13 diferentes templates
+* +400 recursos provisionados com IAC na plataforma
+
+Proximos passos:
+* Converter 80% dos recursos da AWS para utilizar o PDD
+* 100% dos novos produtos utilizando a plataforma
+* +40 instâncias de crossplane sendo gerenciadas (providers dentro dos clusters k8)
+* Habilitar o crossplane para GCP e Azure
+* Backstage para multi github organizations
