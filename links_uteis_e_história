@@ -1,0 +1,48 @@
+PES2023
+
+https://eu-central-1.quicksight.aws.amazon.com/sn/accounts/224688726086/dashboards/gh-awslabs-aws-lambda-powertools-python?directory_alias=powertools
+
+https://awslabs.github.io/aws-lambda-powertools-python/2.14.1/
+
+https://github.com/awslabs/aws-lambda-powertools-python
+
+https://awslabs.github.io/aws-lambda-powertools-python/2.14.1/utilities/idempotency/#idempotency-request-flow
+
+https://github.com/Wivik/devops-solutions-map
+
+https://adrianco.medium.com/platform-engineering-teams-done-right-b3b3d4a8ad23
+
+https://samnewman.io/blog/2023/02/08/dont-call-it-a-platform/
+
+Abstração de ferramentas de monitoramento, com possibilidade de criação de traces, logs, etc.
+Várias funcionalidades.
+Open Source.
+
+Python, .Net, TypeScript, Java
+
+Teoria de times ~2000s
+
+Dev: Devs QA(testes)
+Ops: SysAdmin DBA Network
+Arquitetos e Sec
+
+~2010s
+Dev Ops Product Mgmt
+QA DBA Network
+Sec Arquitetos
+
+~2015s
+Dev Ops Product Mgmt
+Scrum Master QA Arquiteto Network Automation Engineer (caiu DBA)
+
+~2020s
+Teoria de Team Topologies
+Conceito onde você consegue ajustar as coisas de acordo com às mudanças da empresa.
+Times alinhados à entrega do negócio, colaborando entre si.
+Criação de times temporários para dar suporte aos times.
+Time de plataforma.
+
+Efeito de team topologies
+Surgimento de várias camadas de Platform Engineer: Data, Cloud, Python
+
+Documentação é um produto!
