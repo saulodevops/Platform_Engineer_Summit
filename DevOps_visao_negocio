@@ -1,0 +1,35 @@
+Por Roze Cardoso
+Se DevOps é cultura, porque só falamos de ferramentas?
+
+Inúmeras ferramentas para cada etapa do DevOps
+
+Que valores são esses da cultura devops?
+Pilares:
+Culture - People > process > Tools
+Automation - IaC
+Lean - Focus on value and customer
+Measurement - Measure everything
+Sharing - Collaboration/Feedback
+
+Foco no C: DevOps é bem mais do que uma metodologia de melhorar velocidade, monitoramento, etc.
+
+Devops é uma cultura organizacional, depende de uma empresa para funcionar.
+Não somente o k8s precisa estar orquestrado, a companhia tem que estar orquestrada no dia a dia.
+
+MITO
+Devops é apenas IaC ou automação.
+
+DevOps exige normas culturais euma arquitetura que permita atingir os objetivos compartilhados por todo o fluxo
+de valor da TI, vai bem além da automação.
+
+DevOps depende de toda a organização - todos os times da empresa
+
+Leitura: O projeto fênix (alma devops)
+Demonstra como os silos (panelinhas) dentro de uma empresa é prejudicial à saúde mental, emocional e física dos
+funcionários.
+
+Diquinhas para juniors e sandys:
+Atente-se às pessoas
+Copreenda o negócio
+Faça entrevistas
+Não seja cuzão - Buda
