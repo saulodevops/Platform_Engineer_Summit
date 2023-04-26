@@ -1,0 +1,120 @@
+Por Leandro Proença: https://web101.leandronsp.com/
+
+Entrega contínua rumo à produção : Tekton
+
+Um passo atrás: o que é CI/CD?
+Servidor de controle de versão com branches, push, pull, etc.
+Cada pessoa no proprio computador pode rodar linters, check de qualidade, teste de segurança, testes automatizados
+
+Cenário comum: dezenas de pessoas trabalhando durante semanas, meses, contribuindo no mesmo repositório de código
+O momento: Deploy da branch main (merge de todas as branches)
+
+Problemas: Muitos conflitos em um só dia (merge Hell)
+Muitas falhas nos testes integrados
+Maiores chances de rollback
+Muito dificil saber qual branch causou bug
+
+Solução: Integração Contínua
+Geralmente um server de controle de versão (git) de CI, que roda os testes de qualidade, segurança, automatizados.
+
+É muito comum ver na nuvem, exemplo: github actions
+Alternativa: utilizar o Circle CI (que sabe o que acontece no github através de webhooks)
+
+Deploy Continuo: Depois do CI: (processo de empacotar a aplicação) Build/Package (muito comum empacotar na imagem
+Docker) 
+Devemos desacoplar o processo de deploy
+Construímos o pacote na própria máquina e fazemos um push para o package registry e o ambiente de produção faz
+pull das imagens, eliminando o upload direto para produção
+Para fazer isso na nuvem: O github actions,por exemplo, faz o build/package, push para o registry e deploy 
+para produção.
+
+CI/CD em ambientes cloud-native (ambientes que propiciam aplicações padronizadas, com forma única de observabilidade)
+O kubernetes é uma ferramenta cloud-native.
+
+A ideia é fazer com que o processo de CI/CD saia do Github Actions e vá para o Kubernetes
+
+Introdução ao Tekton: traz vários objetos customizados, ouve o webhook do github para iniciar uma pipeline de CI/CD
+Open-source
+Ambientes cloud-native
+Projeto graudado da CDF (continuous delivery foundation)
+Google, RedHat, SAP, Oracle
+
+Principais componentes
+
+Steps
+Steps são containers (unidade mínima)
+Recebem um nome e um script arbitrário
+Não é possível criar steps diretamente no tekton, similar aos containers no Kubernetes
+
+Agrupando multiplos steps: Tasks
+São executadas em uma ordem específica
+Uma task, quando executada, é mapeada diretamente para uma pod no Kubernetes
+Através do objeto TaskRun você pode utilizar o comando kubectl create -f NOMEDATASK
+Conferindo com kubectl get pods e get taskruns
+
+Agrupando multiplas tasks: Pipelines
+Separação lógica das tasks
+Pipeline de Staging: checkout, tests, staging deploy
+Pipeline de Produção
+Utiliza uma taskRef para referenciar, consegue definir uma task com taskSpec no proprio YML.
+get pipelines você consegue ver uma pipeline criada
+Objeto pipelineRun para rodar pipelines
+get pipelineruns consegue ver as pipelines executadas
+get pods para ver os pods rodando
+
+O tekton traz um tooling como alternativa ao kubectl instalando o comando tkn no cluster
+Existe ainda um frontEnd do tekton dashboard
+
+Caso mais real: declaro parâmetros como url e revisão
+
+para o git-clone: ter o git instalado, executar comandos git, mas é uma tarefa repetitiva...
+o tekton resolve isso através do tektonhub (tarefas feitas pela comunidade)
+
+tkn hub install task git-clone
+tasRef: git-clone (importado do tektonhub)
+
+O git-clone precisa da url e revisão (parametros declarados)
+
+próxima task: list-source
+pipelineRuns precisam de parâmetros como url e revisão que são enviados para a pipeline (é o dado hardcoded, envia
+os dados para a pipeline)
+
+As tasks não compartilham dados por default, assim como no kubernetes. Para isso mapeamos volumes: Workspaces
+Secrets, config maps, volumes persistentes
+
+VolumeClaimTemplate: spec: para definir um volume persistente de 1gb, o tekton cria esse volume e passa para a 
+pipeline.
+
+Dentro da pipeline, passo o workspace definido, tanto como parametro, tanto quanto dentro das tasks. Ao definir
+o mesmo workspace para as duas tarefas, elas terão acesso aos mesmos arquivos.
+
+Dentro do step ls: passo o parametro workingDir o workspace criado
+
+O legal é que conseguimos utilizar automação com tekton muito isolada.
+
+Para pipelines automáticas: os runs devem ser automatizados, estímulo : PR no github (webhooks)
+Listeners e Triggers
+TriggerTemplate
+parâmetros declarados: revision e o repo-url
+dentro dele tem uma pipelineRun
+definimos o workspace e utilizamos os parâmetros através da busca do tt.params.NOMEDOPARAMETRO 
+tt é uma variável que acessa os parâmetros que o triggertemplate recebeu (como url e revision).
+
+Ele não tem a informação hardcoded, então pode ser reutilizado.
+
+TriggerBiding: envia os parâmetros para o triggertemplate
+os parâmetros são puxados através de expressão body.RESTANTEDAEXPRESSAO
+
+EventListener: envia os parâmetros do webhook (ponta)
+define os parâmetros através de uma lista de triggers definindo o template e o binding
+Além disso, ele cria um service no kubernetes, que tem uma url (possui um webhook para receber do github PR)
+
+Desenhando algo ainda mais realista (demo): Todos os exemplos estão no repo tekton-101
+
+Entrega contínua rumo a Produção
+Pipeline de Staging: fetch source (git-clone), build (tests, docker sidecar, workspace source, release)
+e deploy staging(kubernetes actions - kubectl), tudo compartilhando o workspace shared-data
+Pipeline de produção: task de kubernetes actions - kubectl
+Ativar Staging com abertura de PR: Tekton interceptor (github interceptor, CEL interceptor, gitblab interceptor)
+-> biding no trigger chamado PR trigger no eventlistener (fetch source, build, staging, rollout pod)
+Ativar produção com merge de PR: CEL interceptor -> trigger chamado merged to main (binding, template: service acc)
