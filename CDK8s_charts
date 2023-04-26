@@ -1,0 +1,19 @@
+Por Sergio Soares
+
+CKD8s é a utilização do conceito do CDK para gerar infraestrutura declarativa para o Kubernetes
+
+Define o conceito de application e chart (que está dentro da aplicação)
+Construct é o menor bloco do CDK8s
+
+Alguns constructs recebem nomes especiais
+
+A partir dos constructs começamos a empilhar a infraestrutura e termos um chart
+
+Basicamente, depois de definida a estrutura de diagrama
+
+para a demo: código em typescript (linguagem padrão do CDK e CDK8s) -> CDK8s synth -> manifestos k8s
+
+Como criar seu chart?
+
+Demonstração mão na massa
+
