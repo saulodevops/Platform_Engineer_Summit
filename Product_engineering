@@ -1,0 +1,32 @@
+A plataforma poderia, ou deveria ter a mesma definição que um produto tem
+
+Agenda:
+* how to go wrong
+* hot to make it work
+
+Como fazer um projeto de adoção/construção de uma plataforma dentro de uma empresa pra dar errado?
+Como fazer um projeto para dar certo?
+
+Como fazer pra dar errado?
+* Programar de qualquer jeito
+* Não ter compreensão do problema que você deseja resolver
+Faremos uma plataforma pra que? Resolver qual problema? Qual o público que você quer atender?
+Você perguntou qual o problema queremos resolver para o negócio?
+* Porque mais rápido é melhor
+* Não entenda que uma plataforma não gera receita para a empresa diretamente.
+* Montar um time de definição (que vai definir quais são os requisitos da plataforma a nível de funcionalidade)
+Porque isso da errado?
+1. Estamos resolvendo um problema da área de negócio
+2. Temos necessidades de cada time (todos querem beber desse pote)
+3. Como trazer um time de fora, consultoria, etc., interno, e dar certo, se não é o time que sofre a dor? Qual
+a vontade que um time de fora tem de trabalhar com essa ferramenta? ou seja, time que caga a regra, não rola. 
+Precisa existir colaboração real e para o time de definição, se ele fizesse sozinho, seria muito melhor
+* TI como dono (PO) -> Conflito de interesses. O dono precisa ser alguém neutro, não influenciável por alguém
+da área de TI - alguém com olhar de produto, que entrega valor.
+
+
+tl;dr
+* devops, sre, pe, and what about next?
+* what > how
+* solve real problems
+Resumão: Concentrar mais no que do que no como
