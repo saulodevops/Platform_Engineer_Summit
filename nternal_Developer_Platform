@@ -1,0 +1,66 @@
+Por Alice Paixão
+
+Internal developer platform
+User story: equipe de engenharia que enfrentava muitos desafios: muito lento com altos custos.
+
+Pessoal desenvolvedor precisava demandar tempo aprendendo muitas coisas de infraestrutura também.
+Muitas pessoas com acessos indevidos, gerando riscos de segurança.
+
+Proposta para resolver isso tudo com uma plataforma:
+Precisamos avaliar o que já temos:
+"Na natureza nada se cria, nada se perde, tudo se transforma"
+Exemplo: scripts de geração de documentação automatizados, templates de helm chart, etc.
+
+Quais componentes precisamos ter na plataforma?
+1. Gerenciamento de configuração de aplicações e serviços
+2. IaC
+3. Deploy por ambientes
+4. CI/CD
+5. Controle de acesso (menor privilégio)
+
+Metodologia Day0/Day1/Day2 (aprendizado de acordo com a necessidade e passo a passo)
+Pequenas entregas
+
+Adaptando para o nosso contexto:
+A mensagem é: Vamos entregar um pontinho de cada vez. Mapeamos que temos cinco componentes em uma internal Developer
+Platform.
+
+Caso de uso da User story:
+* Vimos que tinhamos um pipeline de CI/CD
+* Cluster kubernetes criados de maneira manual
+* Para criar um novo produto ou serviço, ou adicionar mais recursos a um existente, a pessoa deveria tentar aprender
+K8s em seguida solicitar acesso ou aguardar na fila de espera para o time de plataforma executar. A maneira de fazer
+isso era acessando um cluster manualmente e criar/editar .yamls's com kubectl.
+
+O que foi feito?
+*Cluster manuais -> IaC -> Terraform
+* Alterar serviços de maneira segura sem necessidade de edição manual > GitOps > ArgoCD
+
+Agora precisamos resolver uma dor...
+* Precisamos facilitar a jornada das pessoas desenvolvedoras. Pro negócio vamos ganhar tempo
+* Já temos o backend da nossa IDP
+* Nos falta um front-end
+
+Criando um portal para o desenvolvedor
+* Implementar vs ferramenta OpenSource vs SaaS
+
+Exemplos: Backstage Spotify: OpenSource
+Feito para construir portais de desenvolvedores
+Unifica as ferramentas que o time provisiona, os serviços que a empresa contrata e traz documentação de infraestrutura
+Muito customizável
+Esforço do Backstage: Hospedagem e Instalação
+Tempo para ter o primeiro app no Backstage (médio): 24 horas
+Custo: Hospedagem e equipe
+
+Atlassian: SaaS
+Em média, 07 minutos para ter o primeiro app no Atlassian
+Muitas integrações com várias ferramentas
+
+Comece o quanto antes!
+
+A IDP precisa ser adaptada para a necessidade da organização.
+
+Compartilhando resultados:
+* Curva de aprendizado poderá focar em outras tarefas, ramp up acelerados
+* 4 métricas: Deployment Frequency, Lead time for changes, change failure rate, time to restore service
+
