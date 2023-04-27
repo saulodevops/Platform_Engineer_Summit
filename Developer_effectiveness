@@ -1,0 +1,74 @@
+Por Pery Lemke
+
+Como melhorar nossa eficácia?
+Eficácia, o que é? Fazer as coisas certas!
+Eficiência: Entregar com valor, com qualidade -> está ligada ao nível operacional: realizar com menos recursos, menos tempo,
+menor orçamento, menos pessoas, menos materia prima, etc.
+
+O dia de um ambiente pouco efetivo...
+Baixa eficácia:
+* Dia começa com vários alertas de produção;
+* Verifica N sistemas de logs para encontrar erros;
+* Passa a manhã em call com a área de infra para descobrir que os alertas eram falso positivos;
+* Precisa esperar por uma aprovação de arquitetura, governança e compliance para uma nova implementação;
+* Várias reuniões durante o dia, do qual a maioria são de status de projeto;
+* Tem seu PR aprovado no Code Review, onde após mergeado dispara um teste E2E que vai dar errado e é gerenciado
+por uma equipe de qualidade uqe fica separada dos demais;
+* Depende de uma API de outro time interno, que não se encontra documentação em lugar nenhum;
+
+Se for para reiventar a roda, reinvente certo!
+
+O impacto na pessoa desenvolvedora:
+* Atividades que não trazem valor nenhum;
+* Tempo perdido em reuniões e em burocracias que impactam na entrega;
+* Fica desmotivado e por consequencia a qualidade da entrega é ruim;
+* Carga cognitiva alta, atrapalhando sua capacidade de aprender novas habilidades;
+
+O dia de um ambiente altamente eficaz...
+* Verifica as tarefas no seu board e participa de uma reunião que esclarece o que precisa ser feito;
+* Observa que o ambiente de desenvolvimento foi atualizado de acordo com o ambiente de produção e seu pipeline
+CI/CD está verde;
+* Faz pull do código mais recente, faz uma alteração e tem uma validação rápida no ambiente local através dos
+testes unitários;
+* Mesmo dependendo de recursos de outros times, consegue encontrar facilmente a documentação através d eum 
+portal de desenvolvimento. Com dúvidas persistentes pinga a outra equipe no comunicador e consegue sanar as mesmas;
+* Concentra-se nas suas tarefas por algumas horas sem interrupções;
+* Faz uma pausa, bebe um café, faz um carinho no pet;
+* Commita seu código que passa por várias verificações automatizadas antes de ser implantado na produção e feito
+o deploy gradual em Produção;
+
+O impacto na eficiencia da pessoa desenvolvedora
+* Focada em entregas que realmente irão trazer valor;
+* Rapidez para realizar alterações;
+* consegue informações de maneira mais rapida e nao depende de equipes terceiras;
+* Motivada, consegue ter pausas para descanso e assim nao tem carga cognitiva alta;
+* tem visibilidade de todo o processo de entrega;
+
+Ciclo de feedbacks
+Validação se alteração do código local funcionou: meta 5~15 segundos
+Encontrar causa raíz do problema: meta 1 dia
+Validar integração de componentes: meta 2 horas
+Validar se mudança atende requisitos não funcionais: meta 1 a 7 dias
+Onboarding de novas pessoas no time: meta: 4 semanas
+Reposta de uma consulta intera: meta 30 minutos
+Deploy de um novo serviço em produção: meta 3 dias
+validar se a mudança agrega valor a cliente: meta 1 a 4 semanas
+
+Eficácia das organizações
+Pontos importantes:
+* Liderança tem um papel chave no incremento dos ciclos de feedback;
+* Remover atritos entre equipes de desenvolvimento;
+* Tomara de decisões através dos dados;
+* Cultura aberta de feecbacks, mas sem matar o mensageiro;
+* Gerenciar dívida técnica;
+* Padronização e documentação;
+* Governança é prioridade;
+
+Papel crítico da governança:
+* Objetivos claros;
+* Especificar formas de comunicação entre equipes;
+* Incentivar revisão em pares e desenvolvimento em pares;
+* Agregar as melhores práticas de engenharia de plataforma;
+* Incentivar automação dos processos;
+
+Demo Backstage
